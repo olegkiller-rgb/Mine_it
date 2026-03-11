@@ -1,0 +1,131 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>mine it</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 30px;
+  }
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom:5px;
+  }
+  button {
+    font-size: 18px;
+    padding: 15px 25px;
+    cursor: pointer;
+    background-color: brown; 
+    color: white;
+    border: none;
+    border-radius: 0px;
+  }
+  #score {
+    font-size: 24px;
+  }
+</style>
+</head>
+<body>
+
+<marquee behavior="scroll" direction="right"><h1>Mine it</h1></marquee>
+<div class="buttons-container">
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+</div>
+<div class="buttons-container">
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+</div>
+<div class="buttons-container">
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+  <button class="colorBtn"></button>
+</div>
+<div id="score">Общий счет: 0</div>
+<div>
+<button onclick="myDialog.showModal()">О игре</button>
+
+<dialog id="myDialog">
+  <p>Версия indev 0.1</p>
+  <button onclick="myDialog.close()">OK</button>
+</dialog>
+</div>
+
+<script>
+  let totalScore = 0;
+
+  const colorChances = [
+    { color: 'gray', chance: 50 },
+    { color: 'brown', chance: 20 },
+    { color: 'white', chance: 15 },
+    { color: 'yellow', chance: 10 },
+    { color: 'lightblue', chance: 5 }
+  ];
+
+  const colorPoints = {
+    yellow: 30,
+    lightblue: 50,
+    brown: 1,
+    gray: 10,
+    white: 20  // чтобы было что начислять, можно задать
+  };
+
+
+  function getRandomColorByChance() {
+    const rand = Math.random() * 100; // число 0-100
+    let sum = 0;
+    for (let item of colorChances) {
+      sum += item.chance;
+      if (rand <= sum) {
+        return item.color;
+      }
+    }
+    return 'gray'; // fallback, 
+  }
+
+
+  document.querySelectorAll('.colorBtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const newColor = getRandomColorByChance();
+      btn.style.backgroundColor = newColor;
+
+
+      const points = colorPoints[newColor] || 0;
+      totalScore += points;
+
+      
+      document.getElementById('score').innerText = 'Общий счет: ' + totalScore;
+    });
+  });
+</script>
+
+</body>
+</html><style>body{
+  background-color:#964B00;
+}
+
+button {
+  font-size: 18px;
+  padding: 15px 25px;
+  cursor: pointer;
+  background-color: gray;
+  color: white;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+button:hover {
+  border-color: yellow; 
+}</style>
